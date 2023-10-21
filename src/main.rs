@@ -20,20 +20,19 @@ fn model(app: &App) -> Model {
 fn update(_app: &App, _model: &mut Model, _update: Update) {}
 
 // Presents the Model to some window
-fn view(app: &App, model: &Model, frame: Frame) {
+fn view(app: &App, _model: &Model, frame: Frame) {
     let draw = app.draw();
-    let window_size = app.window(model.window).unwrap().rect().w_h();
-    let quarter_width = window_size.0 * 0.25;
-    let quarter_height = window_size.1 * 0.25;
-    draw.background().color(PLUM);
-    draw.ellipse().color(STEELBLUE).x_y(100.0, 100.0);
-    draw.line()
-        .color(BLACK)
-        .start(vec2(0.0, -quarter_height))
-        .end(vec2(0.0, quarter_height));
-    draw.line()
-        .color(BLACK)
-        .start(vec2(-quarter_width, 0.0))
-        .end(vec2(quarter_width, 0.0));
+    // let window_size = app.window(model.window).unwrap().rect().w_h();
+    // let quarter_width = window_size.0 * 0.25;
+    // let quarter_height = window_size.1 * 0.25;
+    draw.background().color(BLACK);
+    let points = (0..100).map(|i|{
+        let x = i as f32 - 50.0;
+        let point = pt2(x, x.sin()) * 20.0;
+        (point, WHITE)
+    });
+    draw.polyline()
+        .weight(1.0)
+        .points_colored(points);
     draw.to_frame(app, &frame).unwrap();
 }
