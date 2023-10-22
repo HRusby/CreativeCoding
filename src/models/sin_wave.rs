@@ -17,6 +17,7 @@ impl NannouModel for SinWave{
     }
     
     fn update(_app: &App, _model: &mut Self::Model, _update: Update) {}
+
     fn view(app: &App, _model: &Self::Model, frame: Frame) {
         let draw = app.draw();
         // let window_size = app.window(model.window).unwrap().rect().w_h();
