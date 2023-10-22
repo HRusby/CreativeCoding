@@ -9,7 +9,8 @@ fn main() {
     // model.run_model();
     match args.model_to_run {
         Model::SinWave => sin_wave::SinWave.run_model(),
-        Model::MovingCircle => moving_circle::MovingCircle.run_model()
+        Model::MovingCircle => moving_circle::MovingCircle.run_model(),
+        Model::MovingSinWave => moving_sin_wave::MovingSinWave.run_model(),
     }
 
 }
@@ -23,7 +24,8 @@ struct CliArgs {
 #[derive(ValueEnum, Clone)]
 enum Model {
     SinWave,
-    MovingCircle
+    MovingCircle,
+    MovingSinWave
 }
 
 impl fmt::Debug for Model {
