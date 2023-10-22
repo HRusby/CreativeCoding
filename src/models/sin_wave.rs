@@ -27,8 +27,8 @@ mod sin_wave{
         // let quarter_width = window_size.0 * 0.25;
         // let quarter_height = window_size.1 * 0.25;
         draw.background().color(BLACK);
-        let points = (0..100).map(|i|{
-            let x = i as f32 - 50.0;
+        let points = (0..10000).map(|i|{
+            let x = (i as f32 - 500.0)*0.01;
             let point = pt2(x, x.sin()) * 50.0;
             (point, WHITE)
         });
