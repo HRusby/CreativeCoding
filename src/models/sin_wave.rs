@@ -5,18 +5,21 @@ mod sin_wave{
 
     pub struct SinWave;
 
-    impl SinWave{
-        // Run once at the begining of the app, produces a fresh instance of Model
-        fn model(app: &App) -> SinWaveModel {
+    impl NannouModel for SinWave{
+        type Model = SinWaveModel;
+        fn run_model(&self) {
+            nannou::app(Self::model)
+                .update(Self::update)
+                .run();
+        }
+
+        fn model(app: &App) -> Self::Model{
             let _window = app.new_window().view(Self::view).build().unwrap();
             SinWaveModel {_window}
         }
-
-        // General type of event occurring on a time frequency (60 times per second) 
-        fn update(_app: &App, _model: &mut SinWaveModel, _update: Update) {}
-
-        // Presents the Model to some window
-        fn view(app: &App, _model: &SinWaveModel, frame: Frame) {
+        
+        fn update(_app: &App, _model: &mut Self::Model, _update: Update) {}
+        fn view(app: &App, _model: &Self::Model, frame: Frame) {
             let draw = app.draw();
             // let window_size = app.window(model.window).unwrap().rect().w_h();
             // let quarter_width = window_size.0 * 0.25;
@@ -32,17 +35,10 @@ mod sin_wave{
                 .points_colored(points);
             draw.to_frame(app, &frame).unwrap();
         }
+
     }
 
-    impl NannouModel for SinWave{
-        fn run_model(&self) {
-            nannou::app(Self::model)
-                .update(Self::update)
-                .run();
-        }
-    }
-
-    struct SinWaveModel {
+    pub struct SinWaveModel {
         _window: window::Id,
     }
 }
