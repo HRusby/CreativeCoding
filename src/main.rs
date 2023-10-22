@@ -1,20 +1,17 @@
 mod models;
 use core::fmt;
-
 use models::{*, nannou_model::NannouModel};
-use clap::Parser;
-use clap::ValueEnum;
+use clap::{Parser, ValueEnum};
+
 fn main() {
     let args = CliArgs::parse();
-    let model = get_model(args.model_to_run);
-    model.run_model();
-
-}
-
-fn get_model(model: Model) -> impl NannouModel{
-    match model{
-        Model::SinWave => return sin_wave::SinWave,
+    // let model = get_model(args.model_to_run);
+    // model.run_model();
+    match args.model_to_run {
+        Model::SinWave => sin_wave::SinWave.run_model(),
+        Model::MovingCircle => moving_circle::MovingCircle.run_model()
     }
+
 }
 
 #[derive(Parser, Clone)]
@@ -25,7 +22,8 @@ struct CliArgs {
 
 #[derive(ValueEnum, Clone)]
 enum Model {
-    SinWave
+    SinWave,
+    MovingCircle
 }
 
 impl fmt::Debug for Model {
