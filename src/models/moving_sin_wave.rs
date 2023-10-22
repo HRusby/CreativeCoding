@@ -24,12 +24,23 @@ impl NannouModel for MovingSinWave{
     fn update(_app: &nannou::App, _model: &mut Self::Model, _update: nannou::prelude::Update) {}
 
     fn view(app: &nannou::App, _model: &Self::Model, frame: nannou::Frame) {
-        let draw = app.draw(); 
+        let scaling_factor = 50.0;
+        let vertical_gap = 50.0;
+        let thickness = 5.0;
+        let speed_factor = 0.01;
+        let fade_factor = 0.01;
 
-        let time = (app.elapsed_frames() as f32) * 0.01;
-        let xy = pt2(time - 10.0, time.sin())*50.0;
-        draw.ellipse().xy(xy).color(WHITE).radius(1.0);
+        let draw = app.draw(); 
+        let time = (app.elapsed_frames() as f32) * speed_factor;
+        let boundary = app.window_rect();
+        let x = boundary.left() + (time*scaling_factor);
+        let y = time.sin()*scaling_factor;
+        let xy = pt2(x, y);
+        draw.ellipse().xy(xy).color(WHITE).radius(thickness);
         
+        let xy2 = pt2(x, y + vertical_gap);
+        draw.ellipse().xy(xy2).color(GREEN).radius(thickness);
+        draw.rect().w_h(boundary.w(), boundary.h()).color(srgba(0.0, 0.0, 0.0, fade_factor));
         draw.to_frame(app, &frame).unwrap();
     }
 }
