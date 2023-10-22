@@ -1,6 +1,7 @@
 mod models;
-use models::*;
+use models::{*, nannou_model::NannouModel};
 fn main() {
-    sin_wave::run_model();
+    let sin_wave = sin_wave::SinWave{}; 
+    sin_wave.run_model();
 }
 
