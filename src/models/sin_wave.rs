@@ -20,17 +20,16 @@ impl NannouModel for SinWave{
 
     fn view(app: &App, _model: &Self::Model, frame: Frame) {
         let draw = app.draw();
-        // let window_size = app.window(model.window).unwrap().rect().w_h();
-        // let quarter_width = window_size.0 * 0.25;
-        // let quarter_height = window_size.1 * 0.25;
+        let boundary = app.window_rect();
         draw.background().color(BLACK);
+        let scaling_factor = 50.0;
         let points = (0..10000).map(|i|{
-            let x = (i as f32 - 500.0)*0.01;
-            let point = pt2(x, x.sin()) * 50.0;
+            let x = (i as f32)*0.01;
+            let point = pt2(boundary.left()+(x*scaling_factor), x.sin()*scaling_factor);
             (point, WHITE)
         });
         draw.polyline()
-            .weight(1.0)
+            .weight(2.0)
             .points_colored(points);
         draw.to_frame(app, &frame).unwrap();
     }
