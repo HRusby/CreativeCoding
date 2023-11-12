@@ -7,12 +7,15 @@ fn main() {
     let args = CliArgs::parse();
     // let model = get_model(args.model_to_run);
     // model.run_model();
+    run_model(args);
+}
+
+fn run_model(args: CliArgs){
     match args.model_to_run {
         Model::SinWave => sin_wave::SinWave.run_model(),
         Model::MovingCircle => moving_circle::MovingCircle.run_model(),
         Model::MovingSinWave => moving_sin_wave::MovingSinWave.run_model(),
     }
-
 }
 
 #[derive(Parser, Clone)]
