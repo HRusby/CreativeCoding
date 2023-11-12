@@ -15,6 +15,7 @@ fn run_model(args: CliArgs){
         Model::SinWave => sin_wave::SinWave.run_model(),
         Model::MovingCircle => moving_circle::MovingCircle.run_model(),
         Model::MovingSinWave => moving_sin_wave::MovingSinWave.run_model(),
+        Model::PerlinNoise => perlin_noise::PerlinNoise.run_model(),
     }
 }
 
@@ -28,7 +29,8 @@ struct CliArgs {
 enum Model {
     SinWave,
     MovingCircle,
-    MovingSinWave
+    MovingSinWave,
+    PerlinNoise
 }
 
 impl fmt::Debug for Model {
